@@ -13,6 +13,7 @@ from pokedata import Pokedata, parse_map
 logger = logging.getLogger(__name__)
 
 REQ_SLEEP = 5
+RADIUS = 1
 MAX_NUM_RETRIES = 10
 
 #Constants for Hex Grid
@@ -74,7 +75,7 @@ class Pokesearch:
             lng = coord[1]
             self.api.set_position(*coord)
 
-            cell_ids = get_cell_ids(lat, lng)
+            cell_ids = get_cell_ids(lat, lng, RADIUS)
             timestamps = [0,] * len(cell_ids)
 
             response_dict = None
@@ -107,7 +108,7 @@ class Pokesearch:
                 # else:
                 #     logger.info("have duplicate poke: %s", key)
             total_steps = (3 * (num_steps**2)) - (3 * num_steps) + 1
-            logger.info('Completed {:5.2f}% of scan.'.format(float(step) / total_steps * 100))
+            # logger.info('Completed {:5.2f}% of scan.'.format(float(step) / total_steps * 100))
             time.sleep(REQ_SLEEP)
 
     def _update_download_settings(self):

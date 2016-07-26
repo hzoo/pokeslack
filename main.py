@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # debug vars, used to test slack integration w/o waiting
     use_cache = False
     cached_filename = 'cached_pokedata.json'
-    search_timeout = 30
+    search_timeout = 15
 
     position, address = get_pos_by_name(location_name)
     config.position = position
@@ -54,7 +54,8 @@ if __name__ == '__main__':
         while True:
             pokemons = []
             for pokemon in pokesearch.search(position, num_steps):
-                logger.info('adding pokemon: %s', pokemon)
+                if pokemon.rarity > 2:
+                    logger.info('adding pokemon: %s', pokemon)
                 pokeslack.try_send_pokemon(pokemon, debug=False)
                 pokemons.append(pokemon)
             with open(cached_filename, 'w') as fp:
