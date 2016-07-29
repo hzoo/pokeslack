@@ -5,7 +5,7 @@ import logging
 import requests
 import string
 
-from datetime import datetime
+import datetime
 from pokeconfig import Pokeconfig
 
 logger = logging.getLogger(__name__)
@@ -18,6 +18,9 @@ class Pokeslack:
         self.slack_webhook_url = slack_webhook_url
 
     def try_send_pokemon(self, pokemon, debug):
+        newTime = datetime.datetime.now() + datetime.timedelta(hours = -4, seconds=pokemon.expires_in().total_seconds())
+        newTimeFormatted = datetime.time(newTime.hour, newTime.minute, newTime.second)
+
         distance = pokemon.get_distance()
 
         # if pokemon.expires_in().total_seconds() < Pokeconfig.EXPIRE_BUFFER_SECONDS:
@@ -55,7 +58,8 @@ class Pokeslack:
         time_remaining = pokemon.expires_in_str()
         stars = ''.join([':star:' for x in xrange(pokemon.rarity)])
         # message = 'I found a <%s|%s> %s <%s|%s away> expiring in %s%s' % (pokedex_url, pokemon.name, stars, map_url, miles_away, time_remaining, from_lure)
-        message = 'There\'s a <%s|%s> here! %s, runs away in %s%s' % (pokedex_url, pokemon.name, miles_away, time_remaining, from_lure)
+        # message = 'There\'s a <%s|%s> here! %s, runs away in %s%s' % (pokedex_url, pokemon.name, miles_away, time_remaining, from_lure)
+        message = 'There\'s a <%s|%s> here! %s, runs away at %s%s' % (pokedex_url, pokemon.name, miles_away, newTimeFormatted, from_lure)
         # bold message if rarity > 4
         if pokemon.rarity >= 2:
             message = '@here *%s*' % message
