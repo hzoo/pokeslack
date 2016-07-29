@@ -59,7 +59,7 @@ class Pokeslack:
         stars = ''.join([':star:' for x in xrange(pokemon.rarity)])
         # message = 'I found a <%s|%s> %s <%s|%s away> expiring in %s%s' % (pokedex_url, pokemon.name, stars, map_url, miles_away, time_remaining, from_lure)
         # message = 'There\'s a <%s|%s> here! %s, runs away in %s%s' % (pokedex_url, pokemon.name, miles_away, time_remaining, from_lure)
-        message = 'There\'s a <%s|%s> here! %s, runs away at %s%s' % (pokedex_url, pokemon.name, miles_away, newTimeFormatted, from_lure)
+        message = 'There\'s a <%s|%s> here! %s, runs away at %s (in %s)%s' % (pokedex_url, pokemon.name, miles_away, newTimeFormatted, time_remaining, from_lure)
         # bold message if rarity > 4
         if pokemon.rarity >= 2:
             message = '@here *%s*' % message
