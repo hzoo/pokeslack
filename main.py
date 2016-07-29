@@ -60,7 +60,7 @@ if __name__ == '__main__':
                 pokemons.append(pokemon)
             with open(cached_filename, 'w') as fp:
                 json.dump(pokemons, fp, default=json_serializer, indent=4)
-            logging.info('done searching, waiting %s seconds...', search_timeout)
+            logging.info('timeout for %s seconds...', search_timeout)
             time.sleep(search_timeout)
     else:
         with open(cached_filename, 'r') as fp:

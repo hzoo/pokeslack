@@ -33,12 +33,12 @@ class Pokeslack:
 
         pokemon_key = pokemon.key
         if pokemon_key in self.sent_pokemon:
-            logger.info('already sent this pokemon to slack with key %s', pokemon_key)
+            # logger.info('already sent this pokemon to slack with key %s', pokemon_key)
             return
 
         if distance > 0.033:
             if pokemon.rarity > 1:
-                logger.info('SKIP: %s distance=%s > 0.033', pokemon.name, round(distance, 3))
+                logger.info('SKIP: %s - %s > 0.033mi', pokemon.name, round(distance, 3))
             return
 
         if pokemon.rarity == 0:
